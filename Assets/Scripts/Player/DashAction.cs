@@ -70,9 +70,8 @@ public class DashAction : PlayerAction
                 if (!characterEnemy.AttackReaction.AttackImmunity && Player.DashAction.Dashing)
                 {
                     characterEnemy.AttackReaction.RpcChangeColor();
-                    _hits++;
+                    OnHit?.Invoke(Player.netIdentity, _hits + 1);
                     RpcChangeScore();
-                    OnHit?.Invoke(Player.netIdentity, _hits);
                 }
             }
         }
@@ -81,6 +80,7 @@ public class DashAction : PlayerAction
     [ClientRpc]
     public void RpcChangeScore()
     {
+        _hits++;
         Player.CanvasRotator.SetText(_hits.ToString());
     }
 

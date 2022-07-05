@@ -21,6 +21,9 @@ public class CameraController : MonoBehaviour
         Vector3 rot = transform.localRotation.eulerAngles;
         _rotY = rot.y;
         _rotX = rot.x;
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void Start()
@@ -35,7 +38,7 @@ public class CameraController : MonoBehaviour
         _mouseY = Input.GetAxis("Mouse Y");
 
         _rotY += _mouseX * _inputSensitivity * Time.deltaTime;
-        _rotX += _mouseY * _inputSensitivity * Time.deltaTime;
+        _rotX += -_mouseY * _inputSensitivity * Time.deltaTime;
 
         _rotX = Mathf.Clamp(_rotX, _minClampAngle, _maxClampAngle);
 
